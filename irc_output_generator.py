@@ -47,6 +47,21 @@ for i in energyabove:
 for i in elementlist:
     atomicnumberlist.append(str(pt.ptable.index(i) + 1))
 
+for i in range(len(coordinatelist)):
+    for k in range(len(atomicnumberlist)):
+        if "-" in coordinatelist[i][k][0]:
+            coordinatelist[i][k][0] = coordinatelist[i][k][0].ljust(10, "0")
+        else:
+            coordinatelist[i][k][0] = coordinatelist[i][k][0].ljust(9, "0")
+        if "-" in coordinatelist[i][k][1]:
+            coordinatelist[i][k][1] = coordinatelist[i][k][1].ljust(10, "0")
+        else:
+            coordinatelist[i][k][1] = coordinatelist[i][k][1].ljust(9, "0")
+        if "-" in coordinatelist[i][k][2]:
+            coordinatelist[i][k][2] = coordinatelist[i][k][2].ljust(10, "0")
+        else:
+            coordinatelist[i][k][2] = coordinatelist[i][k][2].ljust(9, "0")
+
 print(atomicnumberlist)
 
 goutputname = input("Please enter file name you make.\n")
@@ -69,4 +84,17 @@ for i in coordinatelist:
         goutput.write(coordinatelist[cnt3][cnt4][2].rjust(13) + "\n")
         cnt4 += 1
     goutput.write("---------------------------------------------------------------------\nSCF Done:  E(scf) =  ")
+    goutput.write(energyabove[cnt3])
+    goutput.write("\nIRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC\n")
+    if cnt3 == 0:
+        pass
+    else:
+        goutput.write("Pt")
+        goutput.write(str(cnt3).rjust(3))
+        goutput.write(" Step number   1 out of a maximum of  38\n")
+        goutput.write("   NET REACTION COORDINATE UP TO THIS POINT =    {}\n\n".format(orderedrc[cnt3]))
+    goutput.write("IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC-IRC\n")
     cnt3 += 1
+
+goutput.write("\nNormal termination of Gaussian\n\n")
+goutput.close()
